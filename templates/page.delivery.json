@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "delivery",
+      "settings": { "eyebrow": "Delivery & Catering", "heading": "", "text": "We cook from our kitchen in Atlanta and deliver, so there is no counter to queue at. Single meals arrive through our delivery partners; the office is served by us directly.", "button_label": "See the menu" },
+      "blocks": {
+        "uber": { "type": "channel", "settings": { "title": "Uber Eats", "text": "Single meals and sweet things, delivered across Atlanta.", "source": "uber_eats" } },
+        "doordash": { "type": "channel", "settings": { "title": "DoorDash", "text": "The same menu, on DoorDash.", "source": "doordash" } },
+        "catering": { "type": "channel", "settings": { "title": "Office Catering", "text": "Breakfast, lunch and coffee for ten to two hundred, delivered and set out by us.", "source": "catering" } },
+        "kitchen": { "type": "channel", "settings": { "title": "The Kitchen", "text": "Allés cooks from a shared kitchen in Atlanta. No walk-in counter yet; the first one is coming.", "source": "custom" } }
+      },
+      "block_order": ["uber", "doordash", "catering", "kitchen"]
+    },
+    "letter": { "type": "newsletter" }
+  },
+  "order": ["main", "letter"]
+}

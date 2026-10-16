@@ -34,6 +34,14 @@
     ]
   },
   {
+    "name": "Delivery partners",
+    "settings": [
+      { "type": "paragraph", "content": "Allés delivers through partners and has no walk-in counter yet. Paste each store link once it is live; the site shows \"Coming soon\" until then." },
+      { "type": "url", "id": "uber_eats_url", "label": "Uber Eats store" },
+      { "type": "url", "id": "doordash_url", "label": "DoorDash store" }
+    ]
+  },
+  {
     "name": "Social",
     "settings": [
       { "type": "url", "id": "social_instagram", "label": "Instagram" },

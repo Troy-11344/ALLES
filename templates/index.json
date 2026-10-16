@@ -1,12 +1,53 @@
 {
   "sections": {
-    "hero": { "type": "hero-slideshow" },
-    "tiles": { "type": "promo-tiles" },
-    "menu": { "type": "menu-showcase" },
-    "office": { "type": "office-list" },
+    "hero": {
+      "type": "hero-slideshow",
+      "blocks": {
+        "s1": { "type": "slide", "settings": { "eyebrow": "Kitchen & More · Atlanta", "heading": "Feeding Society Daily.", "text": "Breakfast, lunch and coffee, made each morning for the desk and the boardroom.", "button_label": "Order now", "button2_label": "Plan catering", "button2_url": "shopify://pages/catering", "hold": 7 } },
+        "s2": { "type": "slide", "settings": { "eyebrow": "Allés for the Office", "heading": "Lunch for the whole floor.", "text": "Set out on silver, delivered to your office and cleared away after.", "button_label": "Plan catering", "button_url": "shopify://pages/catering", "button2_label": "", "hold": 6 } },
+        "s3": { "type": "slide", "settings": { "eyebrow": "Delivered", "heading": "Dinner at your desk, lunch at your door.", "text": "Single meals from the Allés kitchen, soon on Uber Eats and DoorDash across Atlanta.", "button_label": "Ways to order", "button_url": "shopify://pages/delivery", "button2_label": "", "hold": 6 } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "tiles": {
+      "type": "promo-tiles",
+      "blocks": {
+        "t1": { "type": "tile", "settings": { "script": "Coming Soon", "heading": "Allés opens in Atlanta this season.", "link_label": "Join the Allés Letter", "url": "#letter" } },
+        "t2": { "type": "tile", "settings": { "eyebrow": "Delivery", "heading": "Allés on Uber Eats and DoorDash, this season.", "link_label": "Ways to order", "url": "shopify://pages/delivery" } }
+      },
+      "block_order": ["t1", "t2"]
+    },
+    "menu": {
+      "type": "menu-showcase",
+      "blocks": {
+        "morning": { "type": "category", "settings": { "collection": "morning", "label": "Morning" } },
+        "midday": { "type": "category", "settings": { "collection": "midday", "label": "Midday" } },
+        "sweet": { "type": "category", "settings": { "collection": "sweet", "label": "Sweet" } }
+      },
+      "block_order": ["morning", "midday", "sweet"]
+    },
+    "office": {
+      "type": "office-list",
+      "settings": { "button_url": "shopify://pages/catering" },
+      "blocks": {
+        "o1": { "type": "service", "settings": { "title": "Breakfast Service", "text": "Pastry, fruit, eggs and coffee for early meetings. From 10 guests.", "url": "shopify://pages/catering" } },
+        "o2": { "type": "service", "settings": { "title": "Lunch Service", "text": "Seasonal plates and salads, served family style. From 10 guests.", "url": "shopify://pages/catering" } },
+        "o3": { "type": "service", "settings": { "title": "Coffee & Pastry", "text": "An afternoon pause, brought to the room. From 6 guests.", "url": "shopify://pages/catering" } },
+        "o4": { "type": "service", "settings": { "title": "Team Accounts", "text": "One invoice, set budgets, everyone orders their own.", "url": "shopify://pages/catering" } }
+      },
+      "block_order": ["o1", "o2", "o3", "o4"]
+    },
     "kitchen": { "type": "kitchen-feature" },
-    "letter": { "type": "newsletter" },
-    "app": { "type": "app-download" }
+    "delivery": {
+      "type": "delivery",
+      "blocks": {
+        "uber": { "type": "channel", "settings": { "title": "Uber Eats", "text": "Single meals and sweet things, delivered across Atlanta.", "source": "uber_eats" } },
+        "doordash": { "type": "channel", "settings": { "title": "DoorDash", "text": "The same menu, on DoorDash.", "source": "doordash" } },
+        "catering": { "type": "channel", "settings": { "title": "Office Catering", "text": "Breakfast, lunch and coffee for ten to two hundred, delivered and set out by us.", "source": "catering" } }
+      },
+      "block_order": ["uber", "doordash", "catering"]
+    },
+    "letter": { "type": "newsletter" }
   },
-  "order": ["hero", "tiles", "menu", "office", "kitchen", "letter", "app"]
+  "order": ["hero", "tiles", "menu", "office", "kitchen", "delivery", "letter"]
 }

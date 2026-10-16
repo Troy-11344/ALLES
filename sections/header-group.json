@@ -3,7 +3,7 @@
   "name": "Header group",
   "sections": {
     "announcement": { "type": "announcement-bar", "settings": { "text": "Opening in Atlanta this season." } },
-    "header": { "type": "header", "settings": { "secondary_link_label": "Locations" } }
+    "header": { "type": "header", "settings": { "secondary_link_label": "Delivery", "secondary_link_url": "shopify://pages/delivery" } }
   },
   "order": ["announcement", "header"]
 }
