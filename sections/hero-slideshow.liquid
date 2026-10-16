@@ -1,5 +1,5 @@
 {%- comment -%} Full-width rotating hero, in sweetgreen's position. Each block is a slide. {%- endcomment -%}
-<section class="hero" data-hero data-slide-label="{{ 'accessibility.slide' | t: number: '{{ number }}' }}" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
+<section class="hero" data-hero data-slide-label="{{ 'accessibility.slide' | t: number: 'NUMBER' }}" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
   {%- for block in section.blocks -%}
     {%- liquid
       assign fallback = 'brand-hero.jpg'
