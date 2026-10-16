@@ -1,0 +1,27 @@
+{%- comment -%} The menu index: one tile per part of the menu. {%- endcomment -%}
+<div class="wrap page-head"><h1 class="display">{{ section.settings.heading }}</h1></div>
+<div class="wrap page-body">
+  <div class="grid">
+    {%- for collection in collections -%}
+      {%- unless collection.handle == 'frontpage' -%}
+        <a class="tile reveal" href="{{ collection.url }}">
+          {%- if collection.featured_image -%}
+            {{ collection.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+          {%- else -%}
+            <img src="{{ 'brand-trays.jpg' | asset_url }}" alt="" loading="lazy" width="960" height="1200">
+          {%- endif -%}
+          <div class="txt"><h3 class="display">{{ collection.title }}</h3><span class="caps">{{ collection.all_products_count }} dishes</span></div>
+        </a>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection list",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Headline", "default": "The Menu" }
+  ]
+}
+{% endschema %}

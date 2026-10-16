@@ -1,0 +1,48 @@
+{%- comment -%} The signed-in side: order history, reorder, addresses. {%- endcomment -%}
+<div class="wrap page-head">
+  <div class="caps accent">{{ customer.first_name | default: customer.email }}</div>
+  <h1 class="display">{{ 'customer.account.title' | t }}</h1>
+  <div class="buy">
+    <a class="btn ghost" href="{{ routes.account_addresses_url }}">{{ 'customer.account.addresses' | t }}</a>
+    <a class="caps" href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a>
+  </div>
+</div>
+<div class="wrap page-body">
+  <h2 class="caps" style="margin-bottom:16px">{{ 'customer.account.orders' | t }}</h2>
+  {%- paginate customer.orders by 20 -%}
+    {%- if customer.orders.size == 0 -%}
+      <p class="prose">{{ 'customer.account.no_orders' | t }}</p>
+      <p><a class="btn" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a></p>
+    {%- else -%}
+      <table class="table">
+        <thead><tr><th>{{ 'customer.account.order' | t }}</th><th>{{ 'customer.account.date' | t }}</th><th>{{ 'customer.account.status' | t }}</th><th>{{ 'customer.account.total' | t }}</th><th></th></tr></thead>
+        <tbody>
+          {%- for order in customer.orders -%}
+            <tr>
+              <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+              <td>{{ order.created_at | date: '%b %-d, %Y' }}</td>
+              <td>{{ order.fulfillment_status_label }}</td>
+              <td>{{ order.total_price | money_without_trailing_zeros }}</td>
+              <td>
+                {%- comment -%} Reorder: add every line of that order again. {%- endcomment -%}
+                <form method="post" action="{{ routes.cart_add_url }}" data-add>
+                  {%- for line in order.line_items -%}
+                    <input type="hidden" name="items[{{ forloop.index0 }}][id]" value="{{ line.variant_id }}">
+                    <input type="hidden" name="items[{{ forloop.index0 }}][quantity]" value="{{ line.quantity }}">
+                  {%- endfor -%}
+                  <button class="btn light" type="submit" data-added="{{ 'general.added' | t }}">{{ 'general.order' | t }} again</button>
+                </form>
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Account"
+}
+{% endschema %}

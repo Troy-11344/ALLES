@@ -1,0 +1,60 @@
+{
+  "general": {
+    "meta": { "tags": "Tagged \"{{ tags }}\"", "page": "Page {{ page }}" },
+    "search": { "placeholder": "Search the menu", "results": "{{ count }} results for \"{{ terms }}\"", "none": "Nothing on the menu matches \"{{ terms }}\"." },
+    "404": { "title": "That page is not on the menu.", "text": "Try the menu or head back home." },
+    "home": "Home",
+    "menu": "Menu",
+    "order": "Order",
+    "add": "Add",
+    "added": "Added",
+    "sold_out": "Sold out",
+    "placeholder_note": "Prices shown are placeholders."
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "previous_slide": "Previous slide",
+    "next_slide": "Next slide",
+    "slide": "Slide {{ number }}",
+    "scroll_left": "Scroll menu left",
+    "scroll_right": "Scroll menu right"
+  },
+  "newsletter": {
+    "label": "Email address",
+    "button": "Subscribe",
+    "success": "Thank you. You are on the Allés Letter.",
+    "error": "That email address looks incomplete."
+  },
+  "cart": {
+    "title": "Your order",
+    "empty": "Nothing in your order yet.",
+    "continue": "See the menu",
+    "subtotal": "Subtotal",
+    "note": "Allergies or a note for the kitchen",
+    "checkout": "Check out",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "taxes_note": "Taxes and delivery are calculated at checkout."
+  },
+  "products": {
+    "serves": "Served as the kitchen made it.",
+    "add_to_order": "Add to order",
+    "quantity": "Quantity",
+    "unavailable": "Not available today",
+    "allergens": "Allergens",
+    "dietary": "Dietary"
+  },
+  "collections": {
+    "all": "The full menu",
+    "empty": "Nothing in this part of the menu yet."
+  },
+  "customer": {
+    "login": { "title": "Sign in", "email": "Email", "password": "Password", "submit": "Sign in", "forgot": "Forgot your password?", "create": "Create an account" },
+    "register": { "title": "Create an account", "first_name": "First name", "last_name": "Last name", "email": "Email", "password": "Password", "submit": "Create account", "marketing": "Send me the Allés Letter" },
+    "account": { "title": "Your account", "orders": "Orders", "no_orders": "No orders yet.", "addresses": "Addresses", "logout": "Sign out", "order": "Order", "date": "Date", "status": "Status", "total": "Total" }
+  },
+  "sections": {
+    "header": { "cart": "Order" },
+    "footer": { "copyright": "Allés Kitchen & More" }
+  }
+}

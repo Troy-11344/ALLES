@@ -1,0 +1,27 @@
+<div class="wrap page-head">
+  <div class="caps accent">{{ order.created_at | date: '%B %-d, %Y' }} · {{ order.fulfillment_status_label }}</div>
+  <h1 class="display">{{ 'customer.account.order' | t }} {{ order.name }}</h1>
+</div>
+<div class="wrap page-body">
+  <table class="table">
+    <thead><tr><th></th><th>{{ 'cart.quantity' | t }}</th><th>{{ 'customer.account.total' | t }}</th></tr></thead>
+    <tbody>
+      {%- for line in order.line_items -%}
+        <tr><td>{{ line.title }}</td><td>{{ line.quantity }}</td><td>{{ line.final_line_price | money_without_trailing_zeros }}</td></tr>
+      {%- endfor -%}
+      <tr><td class="caps">{{ 'cart.subtotal' | t }}</td><td></td><td>{{ order.subtotal_price | money_without_trailing_zeros }}</td></tr>
+      <tr><td class="caps">Total</td><td></td><td>{{ order.total_price | money_without_trailing_zeros }}</td></tr>
+    </tbody>
+  </table>
+  {%- if order.shipping_address -%}
+    <h2 class="caps" style="margin-top:40px">Delivered to</h2>
+    <p class="prose">{{ order.shipping_address | format_address }}</p>
+  {%- endif -%}
+  <p style="margin-top:32px"><a class="link" href="{{ routes.account_url }}">← {{ 'customer.account.title' | t }}</a></p>
+</div>
+
+{% schema %}
+{
+  "name": "Order"
+}
+{% endschema %}

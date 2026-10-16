@@ -1,0 +1,47 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign order_url = section.settings.order_url | default: routes.all_products_collection_url
+-%}
+<header class="site-header">
+  <div class="wrap nav">
+    <ul class="left">
+      {%- for link in menu.links limit: 3 -%}
+        <li><a class="caps" href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+    <button class="menu-toggle caps" type="button" data-menu-toggle data-close="Close" aria-expanded="false" aria-controls="MobileMenu">{{ 'general.menu' | t }}</button>
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">{% render 'logo-wordmark' %}</a>
+    <div class="right">
+      {%- if section.settings.secondary_link_label != blank -%}
+        <a class="caps hide-sm" href="{{ section.settings.secondary_link_url }}">{{ section.settings.secondary_link_label }}</a>
+      {%- endif -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="caps hide-sm" href="{{ routes.account_url }}">{{ 'customer.account.title' | t }}</a>
+      {%- endif -%}
+      <a class="btn" href="{% if cart.item_count > 0 %}{{ routes.cart_url }}{% else %}{{ order_url }}{% endif %}" data-cart-link="{{ routes.cart_url }}">{{ 'sections.header.cart' | t }} <span data-cart-count>({{ cart.item_count }})</span></a>
+    </div>
+  </div>
+  <nav class="wrap mobile-menu caps" id="MobileMenu" data-mobile-menu hidden>
+    {%- for link in menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+    {%- if section.settings.secondary_link_label != blank -%}
+      <a href="{{ section.settings.secondary_link_url }}">{{ section.settings.secondary_link_label }}</a>
+    {%- endif -%}
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{{ routes.account_url }}">{{ 'customer.account.title' | t }}</a>
+    {%- endif -%}
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "The first three links show on desktop; all of them in the phone menu." },
+    { "type": "text", "id": "secondary_link_label", "label": "Right-hand link", "default": "Locations" },
+    { "type": "url", "id": "secondary_link_url", "label": "Right-hand link goes to" },
+    { "type": "url", "id": "order_url", "label": "Order button goes to", "info": "Leave empty for the full menu." }
+  ]
+}
+{% endschema %}

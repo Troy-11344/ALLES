@@ -1,0 +1,42 @@
+<div class="wrap page-head"><h1 class="display">{{ 'customer.account.addresses' | t }}</h1></div>
+<div class="wrap page-body account">
+  {%- paginate customer.addresses by 10 -%}
+    {%- for address in customer.addresses -%}
+      <div class="account-box">
+        {%- if address == customer.default_address -%}<span class="caps accent">Default</span>{%- endif -%}
+        <p class="prose">{{ address | format_address }}</p>
+        {%- form 'customer_address', address -%}
+          <div class="field"><label class="caps" for="A{{ address.id }}1">Address</label><input id="A{{ address.id }}1" type="text" name="address[address1]" value="{{ address.address1 }}" autocomplete="address-line1"></div>
+          <div class="field"><label class="caps" for="A{{ address.id }}2">Suite / floor</label><input id="A{{ address.id }}2" type="text" name="address[address2]" value="{{ address.address2 }}" autocomplete="address-line2"></div>
+          <div class="field"><label class="caps" for="A{{ address.id }}c">City</label><input id="A{{ address.id }}c" type="text" name="address[city]" value="{{ address.city }}" autocomplete="address-level2"></div>
+          <div class="field"><label class="caps" for="A{{ address.id }}z">ZIP</label><input id="A{{ address.id }}z" type="text" name="address[zip]" value="{{ address.zip }}" autocomplete="postal-code"></div>
+          <div class="field"><label class="caps" for="A{{ address.id }}p">Phone</label><input id="A{{ address.id }}p" type="tel" name="address[phone]" value="{{ address.phone }}" autocomplete="tel"></div>
+          <input type="hidden" name="address[country]" value="{{ address.country | default: 'United States' }}">
+          <input type="hidden" name="address[province]" value="{{ address.province | default: 'Georgia' }}">
+          <div class="buy"><button class="btn ghost" type="submit">Save</button></div>
+        {%- endform -%}
+        <form method="post" action="{{ address.url }}" onsubmit="return confirm('Delete this address?')">
+          <input type="hidden" name="_method" value="delete">
+          <button class="caps" type="submit" style="background:none;border:0;cursor:pointer">{{ 'cart.remove' | t }}</button>
+        </form>
+      </div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+  <h2 class="caps" style="margin-top:40px">Add an address</h2>
+  {%- form 'customer_address', customer.new_address -%}
+    <div class="field"><label class="caps" for="N1">Address</label><input id="N1" type="text" name="address[address1]" autocomplete="address-line1" required></div>
+    <div class="field"><label class="caps" for="N2">Suite / floor</label><input id="N2" type="text" name="address[address2]" autocomplete="address-line2"></div>
+    <div class="field"><label class="caps" for="Nc">City</label><input id="Nc" type="text" name="address[city]" value="Atlanta" autocomplete="address-level2"></div>
+    <div class="field"><label class="caps" for="Nz">ZIP</label><input id="Nz" type="text" name="address[zip]" autocomplete="postal-code"></div>
+    <div class="field"><label class="caps" for="Np">Phone</label><input id="Np" type="tel" name="address[phone]" autocomplete="tel"></div>
+    <input type="hidden" name="address[country]" value="United States">
+    <input type="hidden" name="address[province]" value="Georgia">
+    <div class="buy"><button class="btn" type="submit">Save address</button></div>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Addresses"
+}
+{% endschema %}

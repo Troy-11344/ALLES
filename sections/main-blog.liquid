@@ -1,0 +1,19 @@
+<div class="wrap page-head"><h1 class="display">{{ blog.title }}</h1></div>
+<div class="wrap page-body">
+  {%- paginate blog.articles by 12 -%}
+    <div class="grid">
+      {%- for article in blog.articles -%}
+        <a class="tile reveal" href="{{ article.url }}">
+          {%- if article.image -%}{{ article.image | image_url: width: 800 | image_tag: loading: 'lazy' }}{%- endif -%}
+          <div class="txt"><span class="caps">{{ article.published_at | date: '%B %Y' }}</span><h3 class="display">{{ article.title }}</h3></div>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Blog"
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+<div class="wrap page-head account"><h1 class="display">Activate your account</h1></div>
+<div class="wrap page-body account">
+  {%- form 'activate_customer_password' -%}
+    {%- if form.errors -%}<div class="errors">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field"><label class="caps" for="ActPassword">{{ 'customer.register.password' | t }}</label><input id="ActPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+    <div class="field"><label class="caps" for="ActConfirm">Confirm password</label><input id="ActConfirm" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+    <div class="buy">
+      <button class="btn" type="submit">Activate</button>
+      <button class="btn ghost" type="submit" name="decline">Decline</button>
+    </div>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Activate account"
+}
+{% endschema %}

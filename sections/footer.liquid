@@ -1,0 +1,56 @@
+<footer class="site-footer" id="footer">
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">{% render 'logo-wordmark' %}</a>
+        {%- if section.settings.tagline != blank -%}<p class="tag">{{ section.settings.tagline }}</p>{%- endif -%}
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="f-col" {{ block.shopify_attributes }}>
+          <h4 class="caps">{{ block.settings.heading | default: block.settings.menu.title }}</h4>
+          <ul>
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+      <div class="f-col">
+        <h4 class="caps">Follow</h4>
+        <ul>
+          {%- if settings.social_instagram != blank -%}<li><a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a></li>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<li><a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a></li>{%- endif -%}
+        </ul>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ 'sections.footer.copyright' | t }}</span>
+      <span>
+        {%- for policy in shop.policies -%}
+          {%- if policy.body != blank -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{% unless forloop.last %} · {% endunless %}{%- endif -%}
+        {%- endfor -%}
+      </span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "richtext", "id": "tagline", "label": "Tagline", "default": "<p>Kitchen & More, Atlanta.<br>Feeding Society Daily.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [{ "name": "Footer", "blocks": [{ "type": "menu" }] }]
+}
+{% endschema %}

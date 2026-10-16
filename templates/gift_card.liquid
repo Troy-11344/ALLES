@@ -1,0 +1,19 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ shop.name }} · Gift card</title>
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <div class="wrap page-head" style="text-align:center;align-items:center">
+    {% render 'logo-wordmark' %}
+    <h1 class="display">{{ gift_card.initial_value | money_without_trailing_zeros }} gift card</h1>
+    <p class="caps">{{ gift_card.code | format_code }}</p>
+    {%- if gift_card.expired -%}<p class="prose">This gift card has expired.</p>{%- endif -%}
+    <a class="btn" href="{{ shop.url }}">{{ 'general.menu' | t }}</a>
+  </div>
+</body>
+</html>

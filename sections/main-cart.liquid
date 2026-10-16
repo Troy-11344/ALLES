@@ -1,0 +1,48 @@
+{%- comment -%} The order, as a plain table, with a kitchen note and checkout. {%- endcomment -%}
+<div class="wrap page-head"><h1 class="display">{{ 'cart.title' | t }}</h1></div>
+<div class="wrap page-body">
+  {%- if cart.item_count == 0 -%}
+    <p class="prose">{{ 'cart.empty' | t }}</p>
+    <p><a class="btn" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a></p>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" id="CartForm">
+      <table class="cart-table">
+        <thead><tr class="caps"><th colspan="2"></th><th>{{ 'cart.quantity' | t }}</th><th>{{ 'cart.subtotal' | t }}</th><th></th></tr></thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td>{%- if item.image -%}{{ item.image | image_url: width: 160 | image_tag: loading: 'lazy' }}{%- endif -%}</td>
+              <td><a href="{{ item.url }}">{{ item.product.title }}</a>{%- unless item.variant.title == 'Default Title' -%}<br><span class="caps" style="color:var(--pewter)">{{ item.variant.title }}</span>{%- endunless -%}</td>
+              <td>
+                <div class="qty">
+                  <button type="button" data-qty="-1" aria-label="−">−</button>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'cart.quantity' | t }}" onchange="this.form.submit()">
+                  <button type="button" data-qty="1" aria-label="+">+</button>
+                </div>
+              </td>
+              <td>{{ item.final_line_price | money_without_trailing_zeros }}</td>
+              <td><a class="caps" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a></td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <div class="cart-foot">
+        <div class="field">
+          <label class="caps" for="CartNote">{{ 'cart.note' | t }}</label>
+          <textarea id="CartNote" name="note">{{ cart.note }}</textarea>
+        </div>
+        <div style="display:grid;gap:18px;justify-items:end">
+          <div class="display" style="font-size:1.8rem">{{ 'cart.subtotal' | t }} · {{ cart.total_price | money_without_trailing_zeros }}</div>
+          <p class="caps" style="color:var(--pewter)">{{ 'cart.taxes_note' | t }}</p>
+          <button class="btn" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart"
+}
+{% endschema %}

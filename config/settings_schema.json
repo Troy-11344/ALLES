@@ -1,0 +1,43 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Allés",
+    "theme_version": "0.1.0",
+    "theme_author": "Allés",
+    "theme_documentation_url": "https://github.com/Troy-11344/ALLES",
+    "theme_support_url": "https://github.com/Troy-11344/ALLES/issues"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "paragraph", "content": "The page is Coconut Milk. Companion colors come from the photography. Mulberry Jam and Butter Yellow are in the brand kit but unused on the web for now." },
+      { "type": "color", "id": "color_page", "label": "Page (Coconut Milk)", "default": "#F4EFE7" },
+      { "type": "color", "id": "color_cream", "label": "Tiles and panels", "default": "#EAE3D7" },
+      { "type": "color", "id": "color_ink", "label": "Text and buttons (Ink)", "default": "#221C18" },
+      { "type": "color", "id": "color_pewter", "label": "Secondary text", "default": "#7D7267" },
+      { "type": "color", "id": "color_stone", "label": "Hairlines", "default": "#CFC4B4" },
+      { "type": "color", "id": "color_accent", "label": "Accent (Olive)", "default": "#55603F" }
+    ]
+  },
+  {
+    "name": "Shapes",
+    "settings": [
+      { "type": "range", "id": "radius", "label": "Photo and tile corners", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 22 }
+    ]
+  },
+  {
+    "name": "Ordering",
+    "settings": [
+      { "type": "paragraph", "content": "Every dish is served the way the kitchen made it. There is no build-your-own." },
+      { "type": "text", "id": "allergy_note", "label": "Note under the menu", "default": "Tell us about allergies at checkout." },
+      { "type": "url", "id": "catering_url", "label": "Where Plan catering goes" }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram", "default": "https://www.instagram.com/eat.alles/" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" }
+    ]
+  }
+]

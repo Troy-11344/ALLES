@@ -1,0 +1,34 @@
+<div class="wrap page-head">
+  <h1 class="display">{{ 'general.search.placeholder' | t }}</h1>
+  <form action="{{ routes.search_url }}" method="get" class="pill-form" role="search">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+    <input type="hidden" name="type" value="product">
+    <button class="round" type="submit" aria-label="Search">→</button>
+  </form>
+</div>
+<div class="wrap page-body">
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      {%- if search.results_count == 0 -%}
+        <p class="prose">{{ 'general.search.none' | t: terms: search.terms }}</p>
+      {%- else -%}
+        <p class="caps" style="margin-bottom:24px;color:var(--pewter)">{{ 'general.search.results' | t: count: search.results_count, terms: search.terms }}</p>
+        <div class="grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- else -%}
+              <a class="tile" href="{{ item.url }}"><div class="txt"><h3 class="display">{{ item.title }}</h3></div></a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search"
+}
+{% endschema %}

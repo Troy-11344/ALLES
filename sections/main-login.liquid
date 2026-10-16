@@ -1,0 +1,29 @@
+<div class="wrap page-head account"><h1 class="display">{{ 'customer.login.title' | t }}</h1></div>
+<div class="wrap page-body account">
+  {%- form 'customer_login' -%}
+    {%- if form.errors -%}<div class="errors">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field"><label class="caps" for="LoginEmail">{{ 'customer.login.email' | t }}</label><input id="LoginEmail" type="email" name="customer[email]" autocomplete="email" required></div>
+    <div class="field"><label class="caps" for="LoginPassword">{{ 'customer.login.password' | t }}</label><input id="LoginPassword" type="password" name="customer[password]" autocomplete="current-password" required></div>
+    <div class="buy">
+      <button class="btn" type="submit">{{ 'customer.login.submit' | t }}</button>
+      <a class="link" href="{{ routes.account_register_url }}">{{ 'customer.login.create' | t }}</a>
+    </div>
+    <a class="caps" href="#recover" onclick="document.getElementById('recover').hidden=false">{{ 'customer.login.forgot' | t }}</a>
+  {%- endform -%}
+  <div id="recover" class="account-box" style="margin-top:32px" hidden>
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}<p class="prose">Check your email for a reset link.</p><script>document.getElementById('recover').hidden=false</script>{%- endif -%}
+      {%- if form.errors -%}<div class="errors">{{ form.errors | default_errors }}</div>{%- endif -%}
+      <div class="field"><label class="caps" for="RecoverEmail">{{ 'customer.login.email' | t }}</label><input id="RecoverEmail" type="email" name="email" autocomplete="email" required></div>
+      <button class="btn ghost" type="submit">{{ 'customer.login.forgot' | t }}</button>
+    {%- endform -%}
+  </div>
+</div>
+
+<script>if (location.hash === '#recover') document.getElementById('recover').hidden = false;</script>
+
+{% schema %}
+{
+  "name": "Sign in"
+}
+{% endschema %}
