@@ -35,6 +35,7 @@ locales/en.default.json     editor labels and storefront strings
   Custom data, Products.
 - A `location` metaobject (Settings, Custom data, Metaobjects) with fields `name`, `address`, `hours`,
   `pickup_window`, `map_url`, `image` and `open` (true/false), for the Locations page.
+- A page using the `page.delivery` template (Ways to order: Uber Eats, DoorDash, catering). The partner links live in Theme settings, Delivery partners, and read "Coming soon" until pasted.
 - Pages using the `page.catering` and `page.locations` templates (pick the template on the page in
   Online Store, Pages). Catering requests arrive through Shopify's contact form.
 - Selling plans from the Shopify Subscriptions app; the dish page shows them as a one-time or
