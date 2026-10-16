@@ -44,7 +44,34 @@
     "quantity": "Quantity",
     "unavailable": "Not available today",
     "allergens": "Allergens",
-    "dietary": "Dietary"
+    "dietary": "Dietary",
+    "how_often": "How often",
+    "one_time": "One time"
+  },
+  "catering": {
+    "title": "Plan catering",
+    "intro": "Tell us about the occasion and the kitchen will come back within one business day with a menu and a quote.",
+    "company": "Company",
+    "name": "Your name",
+    "email": "Email",
+    "phone": "Phone",
+    "date": "Date",
+    "guests": "Number of guests",
+    "service": "Service",
+    "service_options": "Breakfast Service,Lunch Service,Coffee & Pastry,Something else",
+    "address": "Delivery address",
+    "note": "Dietary needs, timing, anything else",
+    "submit": "Send request",
+    "success": "Thank you. The kitchen has your request and will reply within one business day.",
+    "error": "Something in the form needs a second look."
+  },
+  "locations": {
+    "title": "Locations",
+    "hours": "Hours",
+    "pickup": "Pickup",
+    "directions": "Directions",
+    "order_here": "Order for pickup",
+    "coming": "Opening soon"
   },
   "collections": {
     "all": "The full menu",
