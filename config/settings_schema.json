@@ -14,7 +14,7 @@
       { "type": "color", "id": "color_page", "label": "Page (Coconut Milk)", "default": "#F4EFE7" },
       { "type": "color", "id": "color_cream", "label": "Tiles and panels", "default": "#EAE3D7" },
       { "type": "color", "id": "color_ink", "label": "Text and buttons (Ink)", "default": "#221C18" },
-      { "type": "color", "id": "color_pewter", "label": "Secondary text", "default": "#7D7267" },
+      { "type": "color", "id": "color_pewter", "label": "Secondary text", "default": "#5E554B" },
       { "type": "color", "id": "color_stone", "label": "Hairlines", "default": "#CFC4B4" },
       { "type": "color", "id": "color_accent", "label": "Accent (Olive)", "default": "#55603F" }
     ]
