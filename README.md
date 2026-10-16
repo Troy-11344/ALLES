@@ -33,6 +33,12 @@ locales/en.default.json     editor labels and storefront strings
 - Product metafields under the `alles` namespace: `ingredients` (one line under the dish name),
   `dietary` (list of values such as V, GF, DF) and `allergens` (text). Create them under Settings,
   Custom data, Products.
+- A `location` metaobject (Settings, Custom data, Metaobjects) with fields `name`, `address`, `hours`,
+  `pickup_window`, `map_url`, `image` and `open` (true/false), for the Locations page.
+- Pages using the `page.catering` and `page.locations` templates (pick the template on the page in
+  Online Store, Pages). Catering requests arrive through Shopify's contact form.
+- Selling plans from the Shopify Subscriptions app; the dish page shows them as a one-time or
+  recurring choice as soon as a product has one.
 - Navigation menus named `main-menu` (header) and `footer`.
 - Customer accounts switched on, so sign in, register, orders and addresses work.
 

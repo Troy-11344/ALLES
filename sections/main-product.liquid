@@ -31,6 +31,19 @@
         {%- else -%}
           <input type="hidden" name="id" value="{{ variant.id }}">
         {%- endif -%}
+        {%- if product.selling_plan_groups.size > 0 -%}
+          {%- comment -%} Selling plans come from the Shopify Subscriptions app. Empty value = one-time purchase. {%- endcomment -%}
+          <fieldset class="plans">
+            <legend class="caps">{{ 'products.how_often' | t }}</legend>
+            <label><input type="radio" name="selling_plan" value="" checked><span>{{ 'products.one_time' | t }}</span></label>
+            {%- for group in product.selling_plan_groups -%}
+              {%- for plan in group.selling_plans -%}
+                {%- assign allocation = variant.selling_plan_allocations | where: 'selling_plan_id', plan.id | first -%}
+                <label><input type="radio" name="selling_plan" value="{{ plan.id }}"><span>{{ plan.name }}{% if allocation and allocation.price != variant.price %} · {{ allocation.price | money_without_trailing_zeros }}{% endif %}</span></label>
+              {%- endfor -%}
+            {%- endfor -%}
+          </fieldset>
+        {%- endif -%}
         <div class="qty">
           <button type="button" data-qty="-1" aria-label="{{ 'cart.quantity' | t }} −">−</button>
           <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'products.quantity' | t }}">

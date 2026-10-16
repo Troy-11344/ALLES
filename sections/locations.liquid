@@ -1,0 +1,55 @@
+{%- comment -%}
+  Locations, read from the "location" metaobject (Settings, Custom data, Metaobjects) with fields
+  name, address, hours, pickup_window, map_url, image, open (true/false). Shows a placeholder until one exists.
+{%- endcomment -%}
+{%- assign places = shop.metaobjects.location.values -%}
+<div class="wrap page-head">
+  <h1 class="display">{{ section.settings.heading | default: page.title }}</h1>
+  {%- if section.settings.text != blank -%}<p class="prose">{{ section.settings.text }}</p>{%- endif -%}
+</div>
+<div class="wrap page-body">
+  <div class="locations">
+    {%- for place in places -%}
+      <article class="location reveal">
+        <div class="pic">
+          {%- if place.image != blank -%}
+            {{ place.image.value | image_url: width: 800 | image_tag: loading: 'lazy' }}
+          {%- else -%}
+            <img src="{{ 'brand-box.jpg' | asset_url }}" alt="" loading="lazy" width="1100" height="1375">
+          {%- endif -%}
+        </div>
+        <h3>{{ place.name }}{% if place.open.value == false %} <span class="caps accent">{{ 'locations.coming' | t }}</span>{% endif %}</h3>
+        <dl>
+          {%- if place.address != blank -%}<dt class="caps">{{ 'locations.directions' | t }}</dt><dd>{% if place.map_url != blank %}<a href="{{ place.map_url }}" target="_blank" rel="noopener">{{ place.address }}</a>{% else %}{{ place.address }}{% endif %}</dd>{%- endif -%}
+          {%- if place.hours != blank -%}<dt class="caps">{{ 'locations.hours' | t }}</dt><dd>{{ place.hours }}</dd>{%- endif -%}
+          {%- if place.pickup_window != blank -%}<dt class="caps">{{ 'locations.pickup' | t }}</dt><dd>{{ place.pickup_window }}</dd>{%- endif -%}
+        </dl>
+        {%- if place.open.value != false -%}<a class="link" href="{{ routes.all_products_collection_url }}">{{ 'locations.order_here' | t }}</a>{%- endif -%}
+      </article>
+    {%- else -%}
+      <article class="location">
+        <div class="pic"><img src="{{ 'brand-box.jpg' | asset_url }}" alt="" loading="lazy" width="1100" height="1375"></div>
+        <h3>{{ section.settings.placeholder_name }} <span class="caps accent">{{ 'locations.coming' | t }}</span></h3>
+        <dl>
+          <dt class="caps">{{ 'locations.directions' | t }}</dt><dd>{{ section.settings.placeholder_address }}</dd>
+          <dt class="caps">{{ 'locations.hours' | t }}</dt><dd>{{ section.settings.placeholder_hours }}</dd>
+        </dl>
+      </article>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Locations",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Headline", "info": "Leave empty to use the page title." },
+    { "type": "text", "id": "text", "label": "Intro", "default": "Pickup in Atlanta, delivery to offices across the city." },
+    { "type": "header", "content": "Shown until a location metaobject exists" },
+    { "type": "text", "id": "placeholder_name", "label": "Name", "default": "Allés Kitchen, Atlanta" },
+    { "type": "text", "id": "placeholder_address", "label": "Address", "default": "Address to be announced" },
+    { "type": "text", "id": "placeholder_hours", "label": "Hours", "default": "Mon to Fri, 7:30 to 15:00" }
+  ],
+  "presets": [{ "name": "Locations" }]
+}
+{% endschema %}

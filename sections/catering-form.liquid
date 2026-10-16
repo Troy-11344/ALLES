@@ -1,0 +1,47 @@
+{%- comment -%}
+  Catering request. Uses Shopify's contact form, so each request arrives by email to the store's
+  sender address and is kept under Customers. No app needed to start; a quoting app can replace it later.
+{%- endcomment -%}
+<div class="wrap page-head">
+  <div class="caps accent">{{ section.settings.eyebrow }}</div>
+  <h1 class="display">{{ section.settings.heading | default: page.title }}</h1>
+  <p class="prose">{{ section.settings.text }}</p>
+</div>
+<div class="wrap page-body">
+  {%- form 'contact', id: 'CateringForm', class: 'form-grid' -%}
+    {%- if form.posted_successfully? -%}
+      <p class="prose wide" style="color:var(--olive)">{{ 'catering.success' | t }}</p>
+    {%- elsif form.errors -%}
+      <div class="errors wide">{{ 'catering.error' | t }} {{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <input type="hidden" name="contact[kind]" value="Catering request">
+    <div class="field"><label class="caps" for="CatCompany">{{ 'catering.company' | t }}</label><input id="CatCompany" type="text" name="contact[company]" autocomplete="organization"></div>
+    <div class="field"><label class="caps" for="CatName">{{ 'catering.name' | t }}</label><input id="CatName" type="text" name="contact[name]" autocomplete="name" required></div>
+    <div class="field"><label class="caps" for="CatEmail">{{ 'catering.email' | t }}</label><input id="CatEmail" type="email" name="contact[email]" autocomplete="email" required></div>
+    <div class="field"><label class="caps" for="CatPhone">{{ 'catering.phone' | t }}</label><input id="CatPhone" type="tel" name="contact[phone]" autocomplete="tel"></div>
+    <div class="field"><label class="caps" for="CatDate">{{ 'catering.date' | t }}</label><input id="CatDate" type="date" name="contact[date]"></div>
+    <div class="field"><label class="caps" for="CatGuests">{{ 'catering.guests' | t }}</label><input id="CatGuests" type="number" name="contact[guests]" min="1" inputmode="numeric"></div>
+    <div class="field">
+      <label class="caps" for="CatService">{{ 'catering.service' | t }}</label>
+      <select id="CatService" name="contact[service]">
+        {%- assign options = 'catering.service_options' | t | split: ',' -%}
+        {%- for option in options -%}<option>{{ option | strip }}</option>{%- endfor -%}
+      </select>
+    </div>
+    <div class="field"><label class="caps" for="CatAddress">{{ 'catering.address' | t }}</label><input id="CatAddress" type="text" name="contact[address]" autocomplete="street-address"></div>
+    <div class="field wide"><label class="caps" for="CatNote">{{ 'catering.note' | t }}</label><textarea id="CatNote" name="contact[body]"></textarea></div>
+    <div class="buy wide"><button class="btn" type="submit">{{ 'catering.submit' | t }}</button></div>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Catering form",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small line", "default": "Allés for the Office" },
+    { "type": "text", "id": "heading", "label": "Headline", "info": "Leave empty to use the page title." },
+    { "type": "text", "id": "text", "label": "Intro", "default": "Tell us about the occasion and the kitchen will come back within one business day with a menu and a quote." }
+  ],
+  "presets": [{ "name": "Catering form" }]
+}
+{% endschema %}
