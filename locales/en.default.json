@@ -34,7 +34,9 @@
     "checkout": "Check out",
     "remove": "Remove",
     "quantity": "Quantity",
-    "taxes_note": "Taxes and delivery are calculated at checkout."
+    "taxes_note": "Taxes and delivery are calculated at checkout.",
+    "save_heading": "Keep this order.",
+    "save_text": "No account is needed to order. Create one to save your usual, your addresses and your card, and to earn Allés rewards."
   },
   "products": {
     "serves": "Served as the kitchen made it.",

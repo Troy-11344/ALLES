@@ -26,6 +26,18 @@
           {%- endfor -%}
         </tbody>
       </table>
+      {%- if customer == nil and shop.customer_accounts_enabled -%}
+        <aside class="nudge">
+          <div>
+            <strong class="display">{{ 'cart.save_heading' | t }}</strong>
+            <p class="prose">{{ 'cart.save_text' | t }}</p>
+          </div>
+          <div class="buy">
+            <a class="btn ghost" href="{{ routes.account_register_url }}">{{ 'customer.login.create' | t }}</a>
+            <a class="caps" href="{{ routes.account_login_url }}">{{ 'customer.login.title' | t }}</a>
+          </div>
+        </aside>
+      {%- endif -%}
       <div class="cart-foot">
         <div class="field">
           <label class="caps" for="CartNote">{{ 'cart.note' | t }}</label>
