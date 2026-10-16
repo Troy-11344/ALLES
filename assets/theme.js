@@ -10,7 +10,7 @@
     let i = 0, timer;
     slides.forEach((s, n) => {
       const b = document.createElement("button");
-      b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-label", (hero.dataset.slideLabel || "Slide {{ number }}").replace("{{ number }}", n + 1));
+      b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-label", (hero.dataset.slideLabel || "Slide NUMBER").replace("NUMBER", n + 1));
       b.addEventListener("click", () => go(n));
       dots.appendChild(b);
     });

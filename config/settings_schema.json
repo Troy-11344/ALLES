@@ -36,7 +36,7 @@
   {
     "name": "Social",
     "settings": [
-      { "type": "url", "id": "social_instagram", "label": "Instagram", "default": "https://www.instagram.com/eat.alles/" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
       { "type": "url", "id": "social_tiktok", "label": "TikTok" }
     ]
   }

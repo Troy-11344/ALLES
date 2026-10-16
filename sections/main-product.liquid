@@ -6,7 +6,8 @@
 <div class="wrap product">
   <div class="gallery">
     {%- for image in product.images limit: 4 -%}
-      {{ image | image_url: width: 1400 | image_tag: loading: forloop.first | default: 'lazy', sizes: '(max-width: 960px) 100vw, 55vw', widths: '600, 1000, 1400' }}
+      {%- if forloop.first -%}{%- assign loading = 'eager' -%}{%- else -%}{%- assign loading = 'lazy' -%}{%- endif -%}
+      {{ image | image_url: width: 1400 | image_tag: loading: loading, sizes: '(max-width: 960px) 100vw, 55vw', widths: '600, 1000, 1400' }}
     {%- else -%}
       {{ 'product-1' | placeholder_svg_tag: 'rounded' }}
     {%- endfor -%}

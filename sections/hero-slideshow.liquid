@@ -1,5 +1,5 @@
 {%- comment -%} Full-width rotating hero, in sweetgreen's position. Each block is a slide. {%- endcomment -%}
-<section class="hero" data-hero data-slide-label="{{ 'accessibility.slide' | t: number: '{{ number }}' }}" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
+<section class="hero" data-hero data-slide-label="{{ 'accessibility.slide' | t: number: 'NUMBER' }}" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
   {%- for block in section.blocks -%}
     {%- liquid
       assign fallback = 'brand-hero.jpg'
@@ -11,7 +11,15 @@
     -%}
     <div class="slide{% if forloop.first %} active{% endif %}" data-hold="{{ block.settings.hold | times: 1000 }}" {{ block.shopify_attributes }}>
       {%- if block.settings.image -%}
-        {{ block.settings.image | image_url: width: 2400 | image_tag: loading: forloop.first | default: 'lazy', sizes: '100vw', widths: '800, 1200, 1600, 2400', style: '--focal:' | append: block.settings.image.presentation.focal_point }}
+        {%- liquid
+          if forloop.first
+            assign loading = 'eager'
+          else
+            assign loading = 'lazy'
+          endif
+          assign focal = '--focal:' | append: block.settings.image.presentation.focal_point
+        -%}
+        {{ block.settings.image | image_url: width: 2400 | image_tag: loading: loading, sizes: '100vw', widths: '800, 1200, 1600, 2400', style: focal }}
       {%- else -%}
         <img src="{{ fallback | asset_url }}" alt="" width="934" height="1400" {% unless forloop.first %}loading="lazy"{% endunless %}>
       {%- endif -%}
