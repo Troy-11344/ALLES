@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": { "type": "announcement-bar", "settings": { "text": "Opening in Atlanta this season." } },
+    "header": { "type": "header", "settings": { "secondary_link_label": "Locations" } }
+  },
+  "order": ["announcement", "header"]
+}

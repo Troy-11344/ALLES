@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "hero": { "type": "hero-slideshow" },
+    "tiles": { "type": "promo-tiles" },
+    "menu": { "type": "menu-showcase" },
+    "office": { "type": "office-list" },
+    "kitchen": { "type": "kitchen-feature" },
+    "letter": { "type": "newsletter" },
+    "app": { "type": "app-download" }
+  },
+  "order": ["hero", "tiles", "menu", "office", "kitchen", "letter", "app"]
+}

@@ -1,0 +1,76 @@
+{%- comment -%} Full-width rotating hero, in sweetgreen's position. Each block is a slide. {%- endcomment -%}
+<section class="hero" data-hero data-slide-label="{{ 'accessibility.slide' | t: number: '{{ number }}' }}" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign fallback = 'brand-hero.jpg'
+      if forloop.index == 2
+        assign fallback = 'brand-brownie.jpg'
+      elsif forloop.index == 3
+        assign fallback = 'brand-vine.jpg'
+      endif
+    -%}
+    <div class="slide{% if forloop.first %} active{% endif %}" data-hold="{{ block.settings.hold | times: 1000 }}" {{ block.shopify_attributes }}>
+      {%- if block.settings.image -%}
+        {{ block.settings.image | image_url: width: 2400 | image_tag: loading: forloop.first | default: 'lazy', sizes: '100vw', widths: '800, 1200, 1600, 2400', style: '--focal:' | append: block.settings.image.presentation.focal_point }}
+      {%- else -%}
+        <img src="{{ fallback | asset_url }}" alt="" width="934" height="1400" {% unless forloop.first %}loading="lazy"{% endunless %}>
+      {%- endif -%}
+      <div class="shade"></div>
+      <div class="copy">
+        {%- if block.settings.eyebrow != blank -%}<div class="caps">{{ block.settings.eyebrow }}</div>{%- endif -%}
+        {%- if forloop.first -%}
+          <h1 class="display">{{ block.settings.heading }}</h1>
+        {%- else -%}
+          <h2 class="display">{{ block.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+        <div class="actions">
+          {%- if block.settings.button_label != blank -%}<a class="btn light" href="{{ block.settings.button_url | default: routes.all_products_collection_url }}">{{ block.settings.button_label }}</a>{%- endif -%}
+          {%- if block.settings.button2_label != blank -%}<a class="btn on-photo" href="{{ block.settings.button2_url }}">{{ block.settings.button2_label }}</a>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+  <div class="hero-ui">
+    <div class="dots" role="tablist" aria-label="Slides"></div>
+    <button class="round" type="button" data-prev aria-label="{{ 'accessibility.previous_slide' | t }}">←</button>
+    <button class="round" type="button" data-next aria-label="{{ 'accessibility.next_slide' | t }}">→</button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero slideshow",
+  "settings": [
+    { "type": "text", "id": "aria_label", "label": "Accessible name", "default": "Featured" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Set the focal point so the subject stays clear of the text on phones." },
+        { "type": "text", "id": "eyebrow", "label": "Small line", "default": "Kitchen & More · Atlanta" },
+        { "type": "text", "id": "heading", "label": "Headline", "default": "Feeding Society Daily." },
+        { "type": "text", "id": "text", "label": "Text", "default": "Breakfast, lunch and coffee, made each morning for the desk and the boardroom." },
+        { "type": "text", "id": "button_label", "label": "Button", "default": "Order now" },
+        { "type": "url", "id": "button_url", "label": "Button goes to" },
+        { "type": "text", "id": "button2_label", "label": "Second button", "default": "Plan catering" },
+        { "type": "url", "id": "button2_url", "label": "Second button goes to" },
+        { "type": "range", "id": "hold", "label": "Seconds on screen", "min": 3, "max": 12, "step": 1, "default": 7 }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Hero slideshow",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide", "settings": { "eyebrow": "Allés for the Office", "heading": "Lunch for the whole floor.", "text": "Set out on silver, delivered to your office and cleared away after.", "button_label": "Plan catering", "button2_label": "", "hold": 6 } },
+        { "type": "slide", "settings": { "eyebrow": "This Week", "heading": "Heirloom tomato, back on the menu.", "text": "Oxheart tomato, olive oil, sea salt and toasted sourdough.", "button_label": "Order now", "button2_label": "", "hold": 6 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

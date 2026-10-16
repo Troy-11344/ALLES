@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <title>
+    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  {% render 'meta-tags' %}
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDMincho:wght@400;700&family=Instrument+Serif:ital@0;1&family=Pinyon+Script&display=swap">
+  <style>
+    :root {
+      --coconut: {{ settings.color_page }};
+      --cream: {{ settings.color_cream }};
+      --ink: {{ settings.color_ink }};
+      --pewter: {{ settings.color_pewter }};
+      --stone: {{ settings.color_stone }};
+      --olive: {{ settings.color_accent }};
+      --radius: {{ settings.radius }}px;
+    }
+  </style>
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  <script>document.documentElement.className += ' js';</script>
+  {{ content_for_header }}
+</head>
+
+<body class="template-{{ request.page_type | handle }}">
+  <a class="skip-link caps" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
+
+  {% sections 'header-group' %}
+
+  <main id="MainContent" class="content-for-layout" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{%- comment -%} One dish: gallery on the left, sticky details and Add to order on the right. {%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign dietary = product.metafields.alles.dietary.value
+-%}
+<div class="wrap product">
+  <div class="gallery">
+    {%- for image in product.images limit: 4 -%}
+      {{ image | image_url: width: 1400 | image_tag: loading: forloop.first | default: 'lazy', sizes: '(max-width: 960px) 100vw, 55vw', widths: '600, 1000, 1400' }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'rounded' }}
+    {%- endfor -%}
+  </div>
+  <div class="info">
+    {%- if product.collections.first -%}<a class="caps accent" href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>{%- endif -%}
+    <h1 class="display">{{ product.title }}</h1>
+    <div class="price caps" id="ProductPrice">{{ variant.price | money_without_trailing_zeros }}</div>
+    {%- if product.metafields.alles.ingredients != blank -%}
+      <p class="prose">{{ product.metafields.alles.ingredients }}</p>
+    {%- endif -%}
+    {%- if product.description != blank -%}<div class="rte">{{ product.description }}</div>{%- endif -%}
+
+    {%- if product.available -%}
+      {%- form 'product', product, data-add: '', class: 'buy' -%}
+        {%- if product.variants.size > 1 -%}
+          <select name="id" class="field" aria-label="{{ product.options | join: ' / ' }}">
+            {%- for v in product.variants -%}
+              <option value="{{ v.id }}"{% if v == variant %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} · {{ v.price | money_without_trailing_zeros }}</option>
+            {%- endfor -%}
+          </select>
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+        {%- endif -%}
+        <div class="qty">
+          <button type="button" data-qty="-1" aria-label="{{ 'cart.quantity' | t }} −">−</button>
+          <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'products.quantity' | t }}">
+          <button type="button" data-qty="1" aria-label="{{ 'cart.quantity' | t }} +">+</button>
+        </div>
+        <button class="btn" type="submit" data-added="{{ 'general.added' | t }}">{{ 'products.add_to_order' | t }}</button>
+      {%- endform -%}
+    {%- else -%}
+      <span class="btn" aria-disabled="true">{{ 'products.unavailable' | t }}</span>
+    {%- endif -%}
+
+    <dl class="spec">
+      {%- if dietary -%}
+        <div><dt>{{ 'products.dietary' | t }}</dt><dd class="diet">{%- for d in dietary -%}<span>{{ d }}</span>{%- endfor -%}</dd></div>
+      {%- endif -%}
+      {%- if product.metafields.alles.allergens != blank -%}
+        <div><dt>{{ 'products.allergens' | t }}</dt><dd>{{ product.metafields.alles.allergens }}</dd></div>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.text != blank -%}
+          <div {{ block.shopify_attributes }}><dt>{{ block.settings.label }}</dt><dd>{{ block.settings.text }}</dd></div>
+        {%- endif -%}
+      {%- endfor -%}
+    </dl>
+    {%- if settings.allergy_note != blank -%}<p class="caps" style="color:var(--pewter)">{{ settings.allergy_note }}</p>{%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Detail row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Serving" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Served as the kitchen made it." }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}

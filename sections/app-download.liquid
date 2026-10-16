@@ -1,0 +1,43 @@
+<section class="app" id="app">
+  <div class="inner reveal">
+    <div class="copy">
+      <div class="caps accent">{{ section.settings.eyebrow }}</div>
+      <h2 class="display">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="prose">{{ section.settings.text }}</p>{%- endif -%}
+      <div class="stores">
+        {%- if section.settings.ios_url != blank -%}<a class="store" href="{{ section.settings.ios_url }}"><small>Download on the</small>App Store</a>{%- endif -%}
+        {%- if section.settings.android_url != blank -%}<a class="store" href="{{ section.settings.android_url }}"><small>Get it on</small>Google Play</a>{%- endif -%}
+        {%- if section.settings.ios_url == blank and section.settings.android_url == blank -%}
+          <span class="store"><small>Coming to the</small>App Store</span><span class="store"><small>Coming to</small>Google Play</span>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="screen">
+        <div class="top">{% render 'logo-wordmark' %}</div>
+        {%- if section.settings.image -%}
+          {{ section.settings.image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'brand-cream.jpg' | asset_url }}" alt="" loading="lazy" width="864" height="1376">
+        {%- endif -%}
+        <div class="bot caps">{{ section.settings.screen_label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "App download",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small line", "default": "The Allés App" },
+    { "type": "text", "id": "heading", "label": "Headline", "default": "Your order, kept." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Save your usual, schedule catering and collect rewards. One account across the app and the web." },
+    { "type": "url", "id": "ios_url", "label": "App Store link" },
+    { "type": "url", "id": "android_url", "label": "Google Play link" },
+    { "type": "image_picker", "id": "image", "label": "Phone screen photo" },
+    { "type": "text", "id": "screen_label", "label": "Phone screen button", "default": "Start an order" }
+  ],
+  "presets": [{ "name": "App download" }]
+}
+{% endschema %}

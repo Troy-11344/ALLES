@@ -1,0 +1,39 @@
+{%- comment -%} A part of the menu as a grid of dish cards. {%- endcomment -%}
+<div class="wrap page-head">
+  {%- if collection.handle == 'all' -%}
+    <h1 class="display">{{ 'collections.all' | t }}</h1>
+  {%- else -%}
+    <h1 class="display">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="prose rte">{{ collection.description }}</div>{%- endif -%}
+  {%- endif -%}
+</div>
+<div class="wrap page-body">
+  {%- paginate collection.products by section.settings.per_page -%}
+    {%- if collection.products.size > 0 -%}
+      <div class="grid">
+        {%- for product in collection.products -%}
+          <div class="reveal">{% render 'product-card', product: product %}</div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="prose">{{ 'collections.empty' | t }}</p>
+    {%- endif -%}
+    {%- if paginate.pages > 1 -%}
+      <nav class="caps" style="margin-top:40px;display:flex;gap:16px" aria-label="Pagination">
+        {%- if paginate.previous -%}<a class="link" href="{{ paginate.previous.url }}">←</a>{%- endif -%}
+        <span>{{ 'general.meta.page' | t: page: paginate.current_page }}</span>
+        {%- if paginate.next -%}<a class="link" href="{{ paginate.next.url }}">→</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+  {%- if settings.allergy_note != blank -%}<p class="caps" style="margin-top:40px;color:var(--pewter)">{{ settings.allergy_note }}</p>{%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Dishes per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

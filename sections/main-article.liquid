@@ -1,0 +1,12 @@
+<article class="wrap page-head">
+  <div class="caps accent">{{ article.published_at | date: '%B %-d, %Y' }}</div>
+  <h1 class="display">{{ article.title }}</h1>
+  {%- if article.image -%}<div class="rounded">{{ article.image | image_url: width: 1600 | image_tag }}</div>{%- endif -%}
+</article>
+<div class="wrap page-body"><div class="rte">{{ article.content }}</div></div>
+
+{% schema %}
+{
+  "name": "Article"
+}
+{% endschema %}

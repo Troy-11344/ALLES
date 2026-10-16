@@ -1,0 +1,22 @@
+{%- comment -%} Registration. The marketing checkbox records email consent, so the Allés Letter list grows from here too. {%- endcomment -%}
+<div class="wrap page-head account"><h1 class="display">{{ 'customer.register.title' | t }}</h1></div>
+<div class="wrap page-body account">
+  {%- form 'create_customer' -%}
+    {%- if form.errors -%}<div class="errors">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field"><label class="caps" for="RegFirst">{{ 'customer.register.first_name' | t }}</label><input id="RegFirst" type="text" name="customer[first_name]" autocomplete="given-name"></div>
+    <div class="field"><label class="caps" for="RegLast">{{ 'customer.register.last_name' | t }}</label><input id="RegLast" type="text" name="customer[last_name]" autocomplete="family-name"></div>
+    <div class="field"><label class="caps" for="RegEmail">{{ 'customer.register.email' | t }}</label><input id="RegEmail" type="email" name="customer[email]" autocomplete="email" required></div>
+    <div class="field"><label class="caps" for="RegPassword">{{ 'customer.register.password' | t }}</label><input id="RegPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+    <label class="caps" style="display:flex;gap:10px;align-items:center"><input type="checkbox" name="customer[accepts_marketing]" value="1" checked> {{ 'customer.register.marketing' | t }}</label>
+    <div class="buy">
+      <button class="btn" type="submit">{{ 'customer.register.submit' | t }}</button>
+      <a class="link" href="{{ routes.account_login_url }}">{{ 'customer.login.title' | t }}</a>
+    </div>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Create account"
+}
+{% endschema %}

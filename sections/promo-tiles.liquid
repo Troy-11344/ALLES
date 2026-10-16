@@ -1,0 +1,53 @@
+{%- comment -%} Two image tiles under the hero, like sweetgreen's promo banners. {%- endcomment -%}
+<div class="tiles">
+  {%- for block in section.blocks -%}
+    {%- assign fallback = 'brand-box.jpg' -%}
+    {%- if forloop.index == 2 -%}{%- assign fallback = 'brand-trays.jpg' -%}{%- endif -%}
+    <a class="tile reveal" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>
+      {%- if block.settings.image -%}
+        {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(max-width: 960px) 100vw, 50vw', widths: '600, 900, 1400' }}
+      {%- else -%}
+        <img src="{{ fallback | asset_url }}" alt="" loading="lazy" width="960" height="1200">
+      {%- endif -%}
+      <div class="txt">
+        {%- if block.settings.script != blank -%}
+          <div class="script">{{ block.settings.script }}</div>
+        {%- elsif block.settings.eyebrow != blank -%}
+          <div class="caps">{{ block.settings.eyebrow }}</div>
+        {%- endif -%}
+        <h3>{{ block.settings.heading }}</h3>
+        {%- if block.settings.link_label != blank -%}<span class="link">{{ block.settings.link_label }}</span>{%- endif -%}
+      </div>
+    </a>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Promo tiles",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "script", "label": "Script line", "info": "Shown in the script face. Use for one word or two, such as Coming Soon. Leave empty to use the small line instead." },
+        { "type": "text", "id": "eyebrow", "label": "Small line" },
+        { "type": "text", "id": "heading", "label": "Headline", "default": "Allés opens in Atlanta this season." },
+        { "type": "text", "id": "link_label", "label": "Link text", "default": "Join the Allés Letter" },
+        { "type": "url", "id": "url", "label": "Tile goes to" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo tiles",
+      "blocks": [
+        { "type": "tile", "settings": { "script": "Coming Soon" } },
+        { "type": "tile", "settings": { "eyebrow": "Careers", "heading": "The kitchen is hiring cooks, bakers and front of house.", "link_label": "View roles" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
