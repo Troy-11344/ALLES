@@ -18,7 +18,7 @@
         {%- if section.settings.image -%}
           {{ section.settings.image | image_url: width: 600 | image_tag: loading: 'lazy' }}
         {%- else -%}
-          <img src="{{ 'brand-cream.jpg' | asset_url }}" alt="" loading="lazy" width="864" height="1376">
+          <img src="{{ 'brand-cream.jpg' | asset_url }}" alt="" loading="lazy" width="1400" height="1960">
         {%- endif -%}
         <div class="bot caps">{{ section.settings.screen_label }}</div>
       </div>

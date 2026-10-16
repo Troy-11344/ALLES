@@ -6,7 +6,7 @@
       if forloop.index == 2
         assign fallback = 'brand-brownie.jpg'
       elsif forloop.index == 3
-        assign fallback = 'brand-vine.jpg'
+        assign fallback = 'brand-box.jpg'
       endif
     -%}
     <div class="slide{% if forloop.first %} active{% endif %}" data-hold="{{ block.settings.hold | times: 1000 }}" {{ block.shopify_attributes }}>
@@ -21,7 +21,7 @@
         -%}
         {{ block.settings.image | image_url: width: 2400 | image_tag: loading: loading, sizes: '100vw', widths: '800, 1200, 1600, 2400', style: focal }}
       {%- else -%}
-        <img src="{{ fallback | asset_url }}" alt="" width="934" height="1400" {% unless forloop.first %}loading="lazy"{% endunless %}>
+        <img src="{{ fallback | asset_url }}" alt="" width="2000" height="3000" {% unless forloop.first %}loading="lazy"{% endunless %}>
       {%- endif -%}
       <div class="shade"></div>
       <div class="copy">
